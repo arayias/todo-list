@@ -10,22 +10,18 @@ class project {
 }
 
 class todoItem {
-  constructor(
-    title,
-    description,
-    dueDate,
-    priority,
-    notes,
-    checklist,
-    project
-  ) {
+  constructor(title, description, dueDate, priority, notes, project) {
     this.title = title ?? "New Todo";
     this.description = description ?? "";
     this.dueDate = dueDate ?? new Date();
     this.priority = priority ?? 0;
     this.notes = notes ?? "";
-    this.checklist = checklist ?? [];
+    this.checklist = false;
     this.project = project ?? "Inbox";
+  }
+
+  toggleChecklist() {
+    this.checklist = !this.checklist;
   }
 }
 
@@ -39,15 +35,33 @@ function addTodoItem(
   dueDate,
   priority,
   notes,
-  checklist,
   currentProject
 ) {
   projectList[currentProject].addTodoItem(
-    new todoItem(title, description, dueDate, priority, notes, checklist)
+    new todoItem(title, description, dueDate, priority, notes)
   );
 }
 
-const projectList = {};
-addProject("Inbox");
+let projectList = {};
 
-export { projectList, addProject, addTodoItem };
+if (localStorage.getItem("projectList") != null) {
+  const parsedProjectList = JSON.parse(localStorage.getItem("projectList"));
+  Object.keys(parsedProjectList).forEach((currProject) => {
+    projectList[currProject] = new project(currProject);
+    parsedProjectList[currProject].todoList.forEach((currTodoItem) => {
+      projectList[currProject].addTodoItem(
+        new todoItem(
+          currTodoItem.title,
+          currTodoItem.description,
+          currTodoItem.dueDate,
+          currTodoItem.priority,
+          currTodoItem.notes
+        )
+      );
+    });
+  });
+} else {
+  addProject("Inbox");
+}
+
+export { projectList, addProject, addTodoItem, todoItem };

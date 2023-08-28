@@ -19,6 +19,7 @@ header {
   padding: 0.5em;
   text-align: center;
   font-size: 1.2em;
+  color: #fff;
 }
 
 .main-grid {
@@ -96,4 +97,53 @@ header {
   font-weight: bold;
   margin-bottom: 0.5em;
   text-decoration: underline;
+}
+
+.content form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.content form * {
+  border: none;
+  border-bottom: 0.1em solid #cc5546;
+  background-color: #f2f2f2;
+  width: auto;
+}
+
+.content form button {
+  color: black;
+  border: none;
+  border-radius: 0.4em;
+  padding: 0.5em;
+  margin: 0.5em;
+  cursor: pointer;
+  transition: 0.3s;
+  background-color: #cc5546;
+  color: white;
+  opacity: 0.9;
+  border: none;
+  border-radius: 0.4em;
+  outline-offset: -2px;
+  outline: 0.1em solid #fff;
+}
+
+.content form input {
+  max-width: 10em;
+}
+
+.content-todo {
+  margin-top: 1em;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.todo:has(input[type="checkbox"]:checked) {
+  border-bottom: 0.1em solid #cc5546;
 }
